@@ -35,9 +35,9 @@ if(isset($_POST['enviar'])){
         $mail->addAttachment($fileTmpPath, $fileName);
     }
     
-    for ($i = 0; $i < $numEmails; $i++) {
-        $mail->send();
-    }
+   
+    $mail->send();
+    
 
     echo("<script>");
 	echo("alert('E-mail enviado com sucesso!');");

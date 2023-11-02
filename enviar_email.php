@@ -86,8 +86,6 @@
                     <textarea type="text" style="height: 150px" name="fmessage" class="form-control" required></textarea><br>
                     <label for="anexo">Anexo:</label><br>
                     <input type="file" name="anexo"><br><br>
-                    <label for="numemails">Número de e-mails:</label><br>
-                    <input type="number" name="fnumemails" min="1"><br><br>
                     <button name="enviar"class="w-100 btn btn-primary btn-lg" type="submit">Enviar</button>
                   </div>
       
