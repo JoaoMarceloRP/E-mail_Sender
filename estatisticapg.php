@@ -12,10 +12,10 @@
     require_once 'conexao.php';
 
     $sql = "SELECT * FROM emails";
-    $result = $mysqli->query($sql);
+    $result = $conn->query($sql);
 
     if ($result) {
-        if ($result->num_rows > 0) {
+        if ($result->rowCount() > 0) {
             echo "<table border='1'>
                 <tr>
                     <th>ID</th>
@@ -24,18 +24,18 @@
                     <th>Assunto</th>
                     <th>Mensagem</th>
                     <th>Data de Envio</th>
-                    <th>Número de Emails</th>
+                    <th>Tem Anexo</th>
                 </tr>";
 
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
                 echo "<td>" . $row["id"] . "</td>";
-                echo "<td>" . $row["sender"] . "</td>";
-                echo "<td>" . $row["recipient"] . "</td>";
-                echo "<td>" . $row["subject"] . "</td>";
-                echo "<td>" . $row["message"] . "</td>";
-                echo "<td>" . $row["sent_at"] . "</td>";
-                echo "<td>" . $row["num_emails"] . "</td>";
+                echo "<td>" . $row["remetente"] . "</td>";
+                echo "<td>" . $row["destinatario"] . "</td>";
+                echo "<td>" . $row["assunto"] . "</td>";
+                echo "<td>" . $row["mensagem"] . "</td>";
+                echo "<td>" . $row["data_envio"] . "</td>";
+                echo "<td>" . ($row["tem_anexo"] ? 'Sim' : 'Não') . "</td>";
                 echo "</tr>";
             }
 
@@ -44,10 +44,12 @@
             echo "Nenhum email encontrado na tabela.";
         }
     } else {
-        echo "Erro na consulta SQL: " . $mysqli->error;
+        echo "Erro na consulta SQL: " . implode(" - ", $conn->errorInfo());
     }
-
-    $mysqli->close();
     ?>
+
+<a href="home.html">Voltar para a Página Inicial</a>
+
+
 </body>
 </html>

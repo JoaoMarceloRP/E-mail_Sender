@@ -7,12 +7,12 @@ create table usuario(
     primary key(id)
 );
 
-create table emails (
-  id int auto_increment primary key,
-  sender varchar(255) not null,
-  recipient varchar(255) not null,
-  subject varchar(255) not null,
-  message text,
-  sent_at timestamp default current_timestamp,
-  num_emails int default 1
+CREATE TABLE emails (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  remetente VARCHAR(255) NOT NULL,
+  destinatario VARCHAR(255) NOT NULL,
+  assunto VARCHAR(255) NOT NULL,
+  mensagem TEXT,
+  data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  tem_anexo BOOLEAN DEFAULT 0
 );
