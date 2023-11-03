@@ -2,30 +2,36 @@
 
 require_once 'conexao.php';
 
+require './PHPMailer-master/src/Exception.php';
+require './PHPMailer-master/src/PHPMailer.php';
+require './PHPMailer-master/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+if (isset($_POST['enviar_email'])) {
     $sender = 'joaomaropi@gmail.com';
-    $recipient = $_POST['fto'];
-    $subject = $_POST['fsubject'];
-    $message = $_POST['fmessage'];
-    $numEmails = (int) $_POST['fnumemails'];
+    $recipient = htmlentities($_POST['fto']);
+    $subject = htmlentities($_POST['fsubject']);
+    $message = htmlentities($_POST['fmessage']);
+    $numEmails = (int)$_POST['fnumemails'];
 
-    for ($i = 0; $i < $numEmails; $i++) {
-        $sql = "INSERT INTO emails (sender, recipient, subject, message) VALUES ('$sender', '$recipient', '$subject', '$message')";
+    $sql = "INSERT INTO emails (sender, recipient, subject, message, num_emails) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $mysqli->prepare($sql);
 
-        if ($conn->query($sql) === true) {
-            echo "Dados inseridos com sucesso na tabela.";
+    if ($stmt) {
+        $stmt->bind_param("ssssi", $sender, $recipient, $subject, $message, $numEmails);
+        if ($stmt->execute()) {
+            echo "Dados do email foram salvos no banco de dados com sucesso!";
         } else {
-            echo "Erro ao inserir dados na tabela: " . $conn->error;
+            echo "Erro ao inserir dados no banco de dados: " . $stmt->error;
         }
+
+        $stmt->close();
+    } else {
+        echo "Erro na preparação da instrução SQL: " . $mysqli->error;
     }
-
-    $conn->close();
-
-    echo("<script>");
-    echo("alert('E-mail enviado com sucesso e informações inseridas na tabela!');");
-    echo("location.href='home.html';");
-    echo("</script>");
-
-
-
+}
 
 ?>
