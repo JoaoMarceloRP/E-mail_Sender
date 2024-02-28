@@ -6,7 +6,10 @@ if ($email === 'joaomaropi@gmail.com' && $password === 'jgmlvmjdshybypfd') {
     header('Location: home.html');
     exit();
 } else {
-    header('Location: index.html');
+    echo("<script>");
+    echo("alert('Dados de login incorretos!');");
+    echo("location.href='index.html';");
+    echo("</script>");
     exit();
 }
 

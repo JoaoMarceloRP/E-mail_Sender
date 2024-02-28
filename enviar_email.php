@@ -52,7 +52,7 @@
           <h1 class=> Envie Seus Emails Aqui</h1><br>
           <div class="row g-5">
             <div class="col-md-7 col-lg-8">
-              <form action="envio_email.php" action="estatistica.php" method="POST" enctype="multipart/form-data">
+              <form action="envio_email.php" method="POST" enctype="multipart/form-data">
                 <div class="row g-3">
 
                   <div class="col-md-6">
